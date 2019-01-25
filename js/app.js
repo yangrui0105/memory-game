@@ -1,6 +1,42 @@
 /*
  * 创建一个包含所有卡片的数组
  */
+var cardAll=document.querySelectorAll('.card');
+var cards=[];
+var openCards=[];
+// 翻牌
+function displayCard(e){
+    e.target.classList.add('open','show');
+    openCards.push(e.target);
+    if(openCards.length===2){
+           matchedCards();
+           openCards=[];
+    }
+    return;
+}
+// openCards数组中有2张牌时比对
+function matchedCards(){
+
+    if(openCards[length-1].children[0].className===openCards[length-2].children[0].className){
+            console.log('match');
+        }
+        else{
+            console.log('no match');
+        }
+    return;
+}
+
+for(let i=0;i<cardAll.length;i++){
+    cards.push(cardAll[i]);
+}
+
+document.addEventListener('click',displayCard);
+
+
+
+
+
+
 
 
 /*
