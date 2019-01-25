@@ -4,6 +4,7 @@
 var cardAll=document.querySelectorAll('.card');
 var cards=[];
 var openCards=[];
+var matchcards=[];
 // 翻牌
 function displayCard(e){
     e.target.classList.add('open');
@@ -16,15 +17,20 @@ function displayCard(e){
 }
 // openCards数组中有2张牌时比对
 function matchedCards(){
-    // openCards[1].style.backgroundColor='green';
     if(openCards[0].children[0].className===openCards[1].children[0].className){
             openCards[0].classList.add('show');
             openCards[1].classList.add('show');
+            matchcards.push(openCards[0]);
+            matchcards.push(openCards[1]);
+            if(matchcards.length===16){
+                const mainheading=document.querySelector('h1');
+                const htmlTextToAdd='<h1>***WIN***</h1>';
+                mainheading.insertAdjacentHTML('afterend',htmlTextToAdd);
+            }
         }
     else{
             openCards[0].classList.remove('open');
             openCards[1].classList.remove('open');
-
         }
     return;
 }
