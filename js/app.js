@@ -7,12 +7,14 @@ var openCards=[];
 var matchcards=[];
 // 翻牌
 function displayCard(e){
-    e.target.classList.add('open');
-    openCards.push(e.target);
-    if(openCards.length===2){
+    // if(e.target.className='card'){
+        e.target.classList.add('open');
+        openCards.push(e.target);
+        if(openCards.length===2){
            matchedCards();
            openCards=[];
-    }
+        }
+    // }
     return;
 }
 // openCards数组中有2张牌时比对
@@ -37,16 +39,8 @@ function matchedCards(){
 
 for(let i=0;i<cardAll.length;i++){
     cards.push(cardAll[i]);
+    cards[i].addEventListener('click',displayCard);
 }
-
-document.addEventListener('click',displayCard);
-
-
-
-
-
-
-
 
 /*
  * 显示页面上的卡片
@@ -54,9 +48,27 @@ document.addEventListener('click',displayCard);
  *   - 循环遍历每张卡片，创建其 HTML
  *   - 将每张卡的 HTML 添加到页面
  */
+ var iconCards=["fa fa-diamond","fa fa-paper-plane-o","fa fa-anchor","fa fa-bolt",
+ "fa fa-cube","fa fa-anchor","fa fa-leaf","fa fa-bicycle","fa fa-diamond","fa fa-bomb",
+ "fa fa-leaf","fa fa-bomb","fa fa-bolt","fa fa-bicycle","fa fa-paper-plane-o","fa fa-cube"];
 
-// 洗牌函数来自于 http://stackoverflow.com/a/2450976
-function shuffle(array) {
+ var shufflBtn=document.getElementsByClassName('restart')[0];
+ function restartCards(){
+    //清空原来的卡片
+    var deckCard=document.querySelector('.deck');
+    while(deckCard.firstChild){
+        deckCard.removeChild(deckCard.firstChild);
+    }
+    // 洗牌
+    shuffle(iconCards);
+    // 添加打乱的卡片
+    for(var i=0;i<iconCards.length;i++){
+        deckCard.insertAdjacentHTML('afterbegin','<li class="card"><i class=iconCards[i]></i></li>');
+    }
+
+ }
+
+ function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -69,6 +81,23 @@ function shuffle(array) {
 
     return array;
 }
+
+shufflBtn.addEventListener('click',restartCards);
+
+// 洗牌函数来自于 http://stackoverflow.com/a/2450976
+// function shuffle(array) {
+//     var currentIndex = array.length, temporaryValue, randomIndex;
+
+//     while (currentIndex !== 0) {
+//         randomIndex = Math.floor(Math.random() * currentIndex);
+//         currentIndex -= 1;
+//         temporaryValue = array[currentIndex];
+//         array[currentIndex] = array[randomIndex];
+//         array[randomIndex] = temporaryValue;
+//     }
+
+//     return array;
+// }
 
 
 /*
