@@ -6,7 +6,7 @@ var cards=[];
 var openCards=[];
 // 翻牌
 function displayCard(e){
-    e.target.classList.add('open','show');
+    e.target.classList.add('open');
     openCards.push(e.target);
     if(openCards.length===2){
            matchedCards();
@@ -16,12 +16,15 @@ function displayCard(e){
 }
 // openCards数组中有2张牌时比对
 function matchedCards(){
-
-    if(openCards[length-1].children[0].className===openCards[length-2].children[0].className){
-            console.log('match');
+    // openCards[1].style.backgroundColor='green';
+    if(openCards[0].children[0].className===openCards[1].children[0].className){
+            openCards[0].classList.add('show');
+            openCards[1].classList.add('show');
         }
-        else{
-            console.log('no match');
+    else{
+            openCards[0].classList.remove('open');
+            openCards[1].classList.remove('open');
+
         }
     return;
 }
