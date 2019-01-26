@@ -5,6 +5,7 @@ var cardAll=document.querySelectorAll('.card');
 var cards=[];
 var openCards=[];
 var matchcards=[];
+var wintext;
 // 翻牌
 function displayCard(evt){
     if(evt.target.className==='card'){
@@ -25,9 +26,8 @@ function matchedCards(){
             matchcards.push(openCards[0]);
             matchcards.push(openCards[1]);
             if(matchcards.length===16){
-                const mainheading=document.querySelector('h1');
-                const htmlTextToAdd='<h1>***WIN***</h1>';
-                mainheading.insertAdjacentHTML('afterend',htmlTextToAdd);
+                wintext=document.querySelector('p');
+                wintext.classList.add('winshow');
             }
         }
     else{
@@ -58,6 +58,7 @@ document.querySelector('.deck').addEventListener('click',displayCard);
  var shufflBtn=document.getElementsByClassName('restart')[0];
  var deckCard=document.querySelector('.deck');
  function restartCards(){
+    wintext.classList.remove('winshow');
     //清空原来的卡片
     // var deckCard=document.querySelector('.deck');
     while(deckCard.firstChild){
