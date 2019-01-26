@@ -6,15 +6,15 @@ var cards=[];
 var openCards=[];
 var matchcards=[];
 // 翻牌
-function displayCard(e){
-    // if(e.target.className='card'){
-        e.target.classList.add('open');
-        openCards.push(e.target);
+function displayCard(evt){
+    if(evt.target.className==='card'){
+        evt.target.classList.add('open');
+        openCards.push(evt.target);
         if(openCards.length===2){
            matchedCards();
            openCards=[];
         }
-    // }
+    }
     return;
 }
 // openCards数组中有2张牌时比对
@@ -39,8 +39,11 @@ function matchedCards(){
 
 for(let i=0;i<cardAll.length;i++){
     cards.push(cardAll[i]);
-    cards[i].addEventListener('click',displayCard);
+    // cards[i].addEventListener('click',displayCard);
 }
+
+document.querySelector('.deck').addEventListener('click',displayCard);
+
 
 /*
  * 显示页面上的卡片
@@ -83,21 +86,6 @@ for(let i=0;i<cardAll.length;i++){
 }
 
 shufflBtn.addEventListener('click',restartCards);
-
-// 洗牌函数来自于 http://stackoverflow.com/a/2450976
-// function shuffle(array) {
-//     var currentIndex = array.length, temporaryValue, randomIndex;
-
-//     while (currentIndex !== 0) {
-//         randomIndex = Math.floor(Math.random() * currentIndex);
-//         currentIndex -= 1;
-//         temporaryValue = array[currentIndex];
-//         array[currentIndex] = array[randomIndex];
-//         array[randomIndex] = temporaryValue;
-//     }
-
-//     return array;
-// }
 
 
 /*
