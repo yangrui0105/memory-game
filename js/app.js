@@ -67,7 +67,7 @@ document.querySelector('.deck').addEventListener('click',displayCard);
     shuffle(iconCards);
     // 添加打乱的卡片
     for(var i=0;i<iconCards.length;i++){
-        deckCard.insertAdjacentHTML('afterbegin','<li class="card"><i class='+iconCards[i]+'></i></li>');
+        deckCard.insertAdjacentHTML('afterbegin','<li class="card"><i class="'+iconCards[i]+'"></i></li>');
     }
 
  }
