@@ -56,9 +56,10 @@ document.querySelector('.deck').addEventListener('click',displayCard);
  "fa fa-leaf","fa fa-bomb","fa fa-bolt","fa fa-bicycle","fa fa-paper-plane-o","fa fa-cube"];
 
  var shufflBtn=document.getElementsByClassName('restart')[0];
+ var deckCard=document.querySelector('.deck');
  function restartCards(){
     //清空原来的卡片
-    var deckCard=document.querySelector('.deck');
+    // var deckCard=document.querySelector('.deck');
     while(deckCard.firstChild){
         deckCard.removeChild(deckCard.firstChild);
     }
@@ -66,7 +67,7 @@ document.querySelector('.deck').addEventListener('click',displayCard);
     shuffle(iconCards);
     // 添加打乱的卡片
     for(var i=0;i<iconCards.length;i++){
-        deckCard.insertAdjacentHTML('afterbegin','<li class="card"><i class=iconCards[i]></i></li>');
+        deckCard.insertAdjacentHTML('afterbegin','<li class="card"><i class='+iconCards[i]+'></i></li>');
     }
 
  }
