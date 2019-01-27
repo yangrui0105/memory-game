@@ -36,17 +36,6 @@ h1 {
 /*
  * Styles for the deck of cards
  */
-.win {
-    font-size: 45px;
-    color: red;
-    display: none;
- }
-
- .winshow {
-    font-size: 45px;
-    color: red;
-    display: block;
- }
 
 .deck {
     width: 660px;

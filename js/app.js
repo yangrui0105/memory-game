@@ -5,15 +5,42 @@ var cardAll=document.querySelectorAll('.card');
 var cards=[];
 var openCards=[];
 var matchcards=[];
-var wintext;
+var n=0;
+var movestext=document.querySelector('.moves');
+var clicknum=0;
+var t;
+
+// 计时器
+var timetext=document.querySelector('.timeshow');
+var time=1;
+function clock(){
+    time++;
+    timetext.textContent=time;
+    t=setTimeout(function(){
+        clock();
+        timetext.textContent=time;
+    },1000);
+
+}
+
+
 // 翻牌
 function displayCard(evt){
+    clicknum++;
+    if(clicknum===1){
+        clock();
+    }
     if(evt.target.className==='card'){
         evt.target.classList.add('open');
+        evt.target.classList.add('show');
         openCards.push(evt.target);
         if(openCards.length===2){
-           matchedCards();
-           openCards=[];
+            n++;
+            movestext.textContent=n;
+            setTimeout(()=>{
+                matchedCards();
+                openCards=[];
+            },300);
         }
     }
     return;
@@ -21,25 +48,26 @@ function displayCard(evt){
 // openCards数组中有2张牌时比对
 function matchedCards(){
     if(openCards[0].children[0].className===openCards[1].children[0].className){
-            openCards[0].classList.add('show');
-            openCards[1].classList.add('show');
+            openCards[0].classList.add('match');
+            openCards[1].classList.add('match');
             matchcards.push(openCards[0]);
             matchcards.push(openCards[1]);
             if(matchcards.length===16){
-                wintext=document.querySelector('p');
-                wintext.classList.add('winshow');
+                matchcards[0].style.backgroundColor='red';
+                clearTimeout(t);
             }
         }
     else{
-            openCards[0].classList.remove('open');
-            openCards[1].classList.remove('open');
+                openCards[0].classList.remove('open');
+                openCards[0].classList.remove('show');
+                openCards[1].classList.remove('open');
+                openCards[1].classList.remove('show');
         }
     return;
 }
 
 for(let i=0;i<cardAll.length;i++){
     cards.push(cardAll[i]);
-    // cards[i].addEventListener('click',displayCard);
 }
 
 document.querySelector('.deck').addEventListener('click',displayCard);
@@ -58,9 +86,12 @@ document.querySelector('.deck').addEventListener('click',displayCard);
  var shufflBtn=document.getElementsByClassName('restart')[0];
  var deckCard=document.querySelector('.deck');
  function restartCards(){
-    wintext.classList.remove('winshow');
+    clicknum=0;
+    time=1;
+    n=0;
+    clearTimeout(t);
     //清空原来的卡片
-    // var deckCard=document.querySelector('.deck');
+    var deckCard=document.querySelector('.deck');
     while(deckCard.firstChild){
         deckCard.removeChild(deckCard.firstChild);
     }
