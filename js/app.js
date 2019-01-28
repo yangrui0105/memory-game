@@ -5,24 +5,26 @@ var cardAll=document.querySelectorAll('.card');
 var cards=[];
 var openCards=[];
 var matchcards=[];
-var n=0;
+var movenum=0;
 var movestext=document.querySelector('.moves');
 var clicknum=0;
 var t;
 
 // 计时器
 var timetext=document.querySelector('.timeshow');
-var time=1;
+var time=0;
+var starsnum=3;
+var star=document.querySelector('.stars');
+
 function clock(){
     time++;
+
     timetext.textContent=time;
     t=setTimeout(function(){
         clock();
-        timetext.textContent=time;
+        timetext.textContent=time+'秒';
     },1000);
-
 }
-
 
 // 翻牌
 function displayCard(evt){
@@ -35,12 +37,21 @@ function displayCard(evt){
         evt.target.classList.add('show');
         openCards.push(evt.target);
         if(openCards.length===2){
-            n++;
-            movestext.textContent=n;
+            movenum++;
+            movestext.textContent=movenum;
             setTimeout(()=>{
                 matchedCards();
                 openCards=[];
-            },300);
+            },200);
+            if(movenum>=10 && movenum<=20){
+                var starchd3=document.querySelector('.star3');
+                star.removeChild(starchd3);
+                starsnum=2;
+            }else if(movenum>=21 && movenum<=30){
+                var starchd2=document.querySelector('.star2');
+                star.removeChild(starchd2);
+                starsnum=1;
+            }
         }
     }
     return;
@@ -53,8 +64,10 @@ function matchedCards(){
             matchcards.push(openCards[0]);
             matchcards.push(openCards[1]);
             if(matchcards.length===16){
-                matchcards[0].style.backgroundColor='red';
                 clearTimeout(t);
+                setTimeout(function(){
+                    alert("Congratulations!You Won\n With "+movenum+" Moves and "+starsnum+" Stars.");
+                },200);
             }
         }
     else{
@@ -80,16 +93,19 @@ document.querySelector('.deck').addEventListener('click',displayCard);
  *   - 将每张卡的 HTML 添加到页面
  */
  var iconCards=["fa fa-diamond","fa fa-paper-plane-o","fa fa-anchor","fa fa-bolt",
- "fa fa-cube","fa fa-anchor","fa fa-leaf","fa fa-bicycle","fa fa-diamond","fa fa-bomb",
- "fa fa-leaf","fa fa-bomb","fa fa-bolt","fa fa-bicycle","fa fa-paper-plane-o","fa fa-cube"];
+ "fa fa-cube","fa fa-leaf","fa fa-bicycle","fa fa-bomb"];
+ iconCards=iconCards.concat(iconCards);
 
  var shufflBtn=document.getElementsByClassName('restart')[0];
  var deckCard=document.querySelector('.deck');
  function restartCards(){
     clicknum=0;
-    time=1;
-    n=0;
-    clearTimeout(t);
+    time=0;
+    timetext.textContent=time+'秒';
+    movenum=0;
+    movestext.textContent=movenum;
+    matchcards=[];
+
     //清空原来的卡片
     var deckCard=document.querySelector('.deck');
     while(deckCard.firstChild){
