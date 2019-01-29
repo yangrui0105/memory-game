@@ -18,7 +18,6 @@ var star=document.querySelector('.stars');
 
 function clock(){
     time++;
-
     timetext.textContent=time;
     t=setTimeout(function(){
         clock();
@@ -69,7 +68,9 @@ function matchedCards(){
                     alert("Congratulations!You Won\n With "+movenum+" Moves and "+time+"s time "+starsnum+" Stars.");
                 },200);
                 //游戏获胜时重置星级、时间等，使用刷新函数restartCards()
-                // restartCards();
+                setTimeout(function(){
+                    restartCards();
+                },200);
             }
         }
     else{
@@ -101,6 +102,14 @@ document.querySelector('.deck').addEventListener('click',displayCard);
  var shufflBtn=document.getElementsByClassName('restart')[0];
  var deckCard=document.querySelector('.deck');
  function restartCards(){
+    if(starsnum===2){
+        star.insertAdjacentHTML('afterbegin','<li class="star3"><i class="fa fa-star"></i></li>');
+        starsnum=3;
+    }else if(starsnum===1){
+        star.insertAdjacentHTML('afterbegin','<li class="star2"><i class="fa fa-star"></i></li>');
+        star.insertAdjacentHTML('afterbegin','<li class="star3"><i class="fa fa-star"></i></li>');
+        starsnum=3;
+    }
     clicknum=0;
     time=0;
     timetext.textContent=time+'秒';
