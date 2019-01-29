@@ -66,8 +66,10 @@ function matchedCards(){
             if(matchcards.length===16){
                 clearTimeout(t);
                 setTimeout(function(){
-                    alert("Congratulations!You Won\n With "+movenum+" Moves and "+starsnum+" Stars.");
+                    alert("Congratulations!You Won\n With "+movenum+" Moves and "+time+"s time "+starsnum+" Stars.");
                 },200);
+                //游戏获胜时重置星级、时间等，使用刷新函数restartCards()
+                // restartCards();
             }
         }
     else{
